@@ -1,7 +1,11 @@
 import tkinter as tk
-import math
 
 debug = False
+
+def power(b, e):
+    if e == 0: return 1
+    if e == 1: return b
+    if e >= 2: return b * power(b, e-1)
 
 def dotEditor(numRows=112, numCols=16):
     class button_box:
@@ -93,7 +97,7 @@ def dotEditor(numRows=112, numCols=16):
             sum = 0
             for j in range(0, numRows):
                 if (toConvert[i][j] == 1):
-                    sum += math.pow(2, j)
+                    sum += power(2, j)
             convertedArray[i] = int(sum)
         output = "{"
         for i in range(0, numCols):
