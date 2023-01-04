@@ -1,9 +1,9 @@
 # FlipDot-Designer
 This program allows you to edit and create arrays for flip dot boards of any size.
 
-Virus total and other scanners will false flag it due to being compiled with pyinstaller. (you can also just run it for the .py file if you feel unsafe :) )
+Virus total and other scanners will false flag it due to being compiled with pyinstaller. You can also just run it from the .py file if you feel unsafe :).
 
-The program assumes that the (0,0) location stats at the bottom left side of the display 
+The program assumes that the (0,0) location stats at the bottom left side of the display and that the value of the bit increases as the y value increases. The exported array is in the format {col1, col2 col3, ...., coln}; each colx is a byte representation of the column. Exports can also be found in the terminal.
 
 ### Examples of Program:
 
