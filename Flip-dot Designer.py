@@ -251,6 +251,5 @@ def launchMenu():
     menu.geometry("{}x{}+{}+{}".format(windowWidth, windowHeight, x_cordinate, y_cordinate))
     menu.mainloop()
 
-
 if __name__ == '__main__':
     launchMenu()

@@ -8,22 +8,22 @@ The program assumes that the (0,0) location stats at the bottom left side of the
 ### Examples of Program:
 
 ##### Menu
-![Picture of menu](menu.png)
+![Picture of menu](images/menu.png)
 
 ##### Exporting to Array
-![Picture of exportExample](exportExample.png)
+![Picture of exportExample](images/exportExample.png)
 
 ##### How does the program work?
-![Picture of calculationProcedure](calculationProcedure.png)
+![Picture of calculationProcedure](images/calculationProcedure.png)
 
 ##### Example 1
-![Picture of example1](example1.png)
+![Picture of example1](images/example1.png)
 
 ##### Example 2
-![Picture of example2](example2.png)
+![Picture of example2](images/example2.png)
 
 ##### Example 3
-![Picture of example3](example3.png)
+![Picture of example3](images/example3.png)
 
 ##### Example 4
-![Picture of example4](example4.png)
+![Picture of example4](images/example4.png)
