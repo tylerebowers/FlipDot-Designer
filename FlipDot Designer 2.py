@@ -50,15 +50,15 @@ class dotEditor(tk.Frame):
                 x0, y0 = (column * scale), (row * scale)
                 x1, y1 = (x0 + scale), (y0 + scale)
                 self.canvas.create_rectangle(x0, y0, x1, y1, fill="black", outline="gray",
-                                             tags=(self.tag(row, column), "cell"))
+                                             tags=(self.tag(column, row), "cell"))
         self.canvas.tag_bind("cell", "<B1-Motion>", lambda event: self.paint(event, "yellow"))
         self.canvas.tag_bind("cell", "<Button-1>", lambda event: self.paint(event, "yellow"))
         self.canvas.tag_bind("cell", "<B3-Motion>", lambda event: self.paint(event, "black"))
         self.canvas.tag_bind("cell", "<Button-3>", lambda event: self.paint(event, "black"))
         self.root.mainloop()
 
-    def tag(self, row, column):
-        tag = f"{row},{column}"
+    def tag(self, x, y):
+        tag = f"{x},{y}"
         return tag
 
     def export(self):
@@ -67,13 +67,13 @@ class dotEditor(tk.Frame):
             for column in range(self.numCols):
                 output.append(0)
                 for row in range(self.numRows):
-                    if self.canvas.itemcget(self.tag(row, column), "fill") == "yellow":
+                    if self.canvas.itemcget(self.tag(column, row), "fill") == "yellow":
                         output[column] += 2 ** row
         elif self.origin == "BL":
             for column in range(self.numCols):
                 output.append(0)
                 for row in range(self.numRows):
-                    if self.canvas.itemcget(self.tag(row, column), "fill") == "yellow":
+                    if self.canvas.itemcget(self.tag(column, row), "fill") == "yellow":
                         output[column] += 2 ** (self.numRows - row - 1)
         formatted = f'{{{",".join([str(x) for x in output])}}};\n'
         self.imexBox.set(formatted)
@@ -87,19 +87,19 @@ class dotEditor(tk.Frame):
             for column in range(min(len(array), self.numCols)):
                 for row in range(self.numRows):
                     if (int(array[column]) >> row) & 1:
-                        self.canvas.itemconfig(self.tag(row, column), fill="yellow")
+                        self.canvas.itemconfig(self.tag(column, row), fill="yellow")
         elif self.origin == "BL":
             for column in range(min(len(array), self.numCols)):
                 for row in range(self.numRows):
                     if (int(array[column]) >> (self.numRows - row - 1)) & 1:
-                        self.canvas.itemconfig(self.tag(row, column), fill="yellow")
+                        self.canvas.itemconfig(self.tag(column, row), fill="yellow")
         if self.serialSyncActive:
             self.serialExport()
 
     def allToggle(self, fill):
         for column in range(self.numCols):
             for row in range(self.numRows):
-                self.canvas.itemconfig(self.tag(row, column), fill=fill)
+                self.canvas.itemconfig(self.tag(column, row), fill=fill)
         if self.serialSyncActive:
             self.serialExport()
 
@@ -109,6 +109,7 @@ class dotEditor(tk.Frame):
         if self.serialSyncActive and (self.previousCellNum != cell[0] or self.previousCellFill != fill):
             self.previousCellFill = fill
             self.previousCellNum = cell[0]
+            print(self.canvas.itemcget(cell, "tags"))
             if fill == "yellow":
                 self.serialConnection.write(f'({self.canvas.itemcget(cell, "tags").split(" ")[0]},1)\n'.encode('ascii','ignore'))
             else:
