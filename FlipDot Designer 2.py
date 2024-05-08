@@ -75,14 +75,14 @@ class dotEditor(tk.Frame):
                 for row in range(self.numRows):
                     if self.canvas.itemcget(self.tag(column, row), "fill") == "yellow":
                         output[column] += 2 ** (self.numRows - row - 1)
-        formatted = f'{{{",".join([str(x) for x in output])}}};\n'
+        formatted = f'[{",".join([str(x) for x in output])}]\n'
         self.imexBox.set(formatted)
         print(formatted, end="")
         return formatted
 
     def importArray(self):
         array = self.imexBox.get()
-        array = array[array.index('{')+1:array.index('}')].split(",")
+        array = array[array.index('[')+1:array.index(']')].split(",")
         if self.origin == "TL":
             for column in range(min(len(array), self.numCols)):
                 for row in range(self.numRows):
